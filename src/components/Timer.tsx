@@ -1,13 +1,16 @@
-import React from "react";
 import useTimer from "../hooks/useTimer";
 
 type PropType = {
 	start: boolean;
-	setTimeout: React.Dispatch<React.SetStateAction<boolean>>;
+	timer: number;
 };
 
-const Timer = ({ start, setTimeout }: PropType) => {
-	const { seconds, minutes } = useTimer({ timer: 180, start: start, setTimeout: setTimeout });
+const Timer = ({ start, timer }: PropType) => {
+	const { seconds, minutes } = useTimer({
+		timer: timer,
+		start: start,
+	});
+
 	return (
 		<div className="text-6xl text-white font-bold">
 			{minutes}:{seconds}

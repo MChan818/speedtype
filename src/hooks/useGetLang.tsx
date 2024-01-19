@@ -23,7 +23,6 @@ const useGetLang = (): TApiWordsResponse => {
 					throw new Error("Error fetching words");
 				})
 				.then((res: any) => {
-					console.log(res);
 					setLangs(res);
 				})
 				.catch((err) => {

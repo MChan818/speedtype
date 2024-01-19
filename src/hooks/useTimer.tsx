@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { TimeContext } from "../components/Context/TimeContext";
 
 type PropType = {
 	timer: number;
 	start: boolean;
-	setTimeout: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const useTimer = ({ timer, start, setTimeout }: PropType) => {
+const useTimer = ({ timer, start }: PropType) => {
+	const { handleTimeLeft, handleTimePassed } = useContext(TimeContext);
 	const [timeLeft, setTimeLeft] = useState<number>(timer);
 	const [minutes, setMinutes] = useState<string>("");
 	const [seconds, setSeconds] = useState<string>("");
@@ -26,12 +27,13 @@ const useTimer = ({ timer, start, setTimeout }: PropType) => {
 
 	useEffect(() => {
 		const handleTimeout = () => {
+			handleTimePassed(timer - timeLeft);
+			handleTimeLeft(timeLeft);
 			setMinutes(Math.floor(timeLeft / 60).toString());
 			setSeconds((timeLeft % 60).toString().padStart(2, "0"));
-			setTimeout(timeLeft === 0 ?? true);
 		};
 		handleTimeout();
-	}, [timeLeft, setTimeout]);
+	}, [timeLeft, handleTimeLeft, handleTimePassed, timer]);
 
 	return { timeLeft, seconds, minutes };
 };

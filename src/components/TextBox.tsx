@@ -6,14 +6,49 @@ import { defaultList } from "./WordList/WordList";
 
 type PropType = {
 	handleStart: () => void;
+	handleWords: (isCorrect: boolean) => void;
 };
 
-const TextBox = ({ handleStart }: PropType) => {
+const TextBox = ({ handleStart, handleWords }: PropType) => {
 	const { lang } = useContext(AppContext);
 	const [inputValue, setInputValue] = useState<string>("");
 	const [currentWord, setCurrentWord] = useState<number>(0);
 	const [currentLetter, setCurrentLetter] = useState<number>(0);
 	const { data, loading } = useGetWords({ number: 100, language: lang || "en" });
+
+	const paintLetter = (isCorrect: boolean): void => {
+		const letterElement = document.getElementById(
+			"word" + currentWord + "-letter" + currentLetter,
+		);
+		if (!letterElement) return console.error("Letter id not found");
+		letterElement.style.color = isCorrect
+			? import.meta.env.VITE_COLOR_GREEN
+			: import.meta.env.VITE_COLOR_RED;
+	};
+
+	const paintLettersRemainers = () => {
+		const wordElement = document.getElementById("word" + currentWord);
+		if (!wordElement) return console.error("Word id not found");
+		wordElement.style.color = import.meta.env.VITE_COLOR_RED;
+	};
+
+	const wordStatus = (word: string): boolean => {
+		const wordElement = document.getElementById("word" + currentWord);
+		if (!wordElement) {
+			console.error("Word ID not found");
+			return false;
+		}
+		const childrenArray: Element[] = Array.from(wordElement.children);
+		const innerHTMLArray: string[] = childrenArray.map((letter: Element, index: number) => {
+			if (index === childrenArray.length - 1) return "";
+			return letter.innerHTML;
+		});
+		const stringFromChildren: string = innerHTMLArray.join("");
+		if (stringFromChildren === word.replace(" ", "")) {
+			return true;
+		}
+		return false;
+	};
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const handleInput = (event: any) => {
@@ -21,8 +56,11 @@ const TextBox = ({ handleStart }: PropType) => {
 		const lastLetter: string = event.nativeEvent.data;
 		setInputValue(word);
 		if (lastLetter === " ") {
+			paintLettersRemainers();
 			setCurrentLetter(0);
 			setCurrentWord((prev) => prev + 1);
+			handleWords(wordStatus(word));
+
 			return setInputValue("");
 		}
 		if (lastLetter === null) {
@@ -39,16 +77,16 @@ const TextBox = ({ handleStart }: PropType) => {
 		);
 		if (!letterElement) return console.error("Letter id not found");
 		if (letterElement.innerHTML === word.substring(word.length - 1, word.length)) {
-			letterElement.style.color = import.meta.env.VITE_COLOR_GREEN;
+			paintLetter(true);
 		} else {
-			letterElement.style.color = import.meta.env.VITE_COLOR_RED;
+			paintLetter(false);
 		}
 		setCurrentLetter((prev) => prev + 1);
 	};
 
 	useEffect(() => {
-		if (inputValue.length > 0) handleStart();
-	}, [inputValue, handleStart]);
+		if (inputValue.length > 0 || currentWord !== 0 || currentLetter || 0) handleStart();
+	}, [inputValue, handleStart, currentWord, currentLetter]);
 
 	return data && !loading ? (
 		<>
