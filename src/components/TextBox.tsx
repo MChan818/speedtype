@@ -1,19 +1,16 @@
-import React, { useState } from "react";
+import { useContext } from "react";
 import useGetWords from "../hooks/useGetWords";
 import useGetLang from "../hooks/useGetLang";
+import { AppContext } from "./Context/AppContext";
 
 const TextBox = () => {
-	const [country, setCountry] = useState<string>("es");
-	const { data } = useGetWords({ number: 50, language: country });
-	const { lang } = useGetLang();
-
-	const handleLanguage = (data: string) => {
-		setCountry(data);
-	};
+	const { lang } = useContext(AppContext);
+	const { data } = useGetWords({ number: 50, language: lang || "es" });
+	const { languages } = useGetLang();
 
 	return (
-		<div id="textbox" className="border-2 border-white">
-			{data.join(" ")}
+		<div id="textbox" className="min-h-[20vh] border-2 border-white mt-12">
+			<p className="text-lg p-4">{data.join(" ")}</p>
 		</div>
 	);
 };

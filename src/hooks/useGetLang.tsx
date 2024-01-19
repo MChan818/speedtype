@@ -2,14 +2,14 @@
 import { useLayoutEffect, useState } from "react";
 
 export type TApiWordsResponse = {
-	lang: string[];
+	languages: string[];
 	error: any;
 	loading: boolean;
 };
 
 const useGetLang = (): TApiWordsResponse => {
 	const [loading, setLoading] = useState<boolean>(false);
-	const [lang, setLangs] = useState<string[]>([]);
+	const [languages, setLangs] = useState<string[]>([]);
 	const [error, setError] = useState<any>();
 
 	useLayoutEffect(() => {
@@ -35,7 +35,7 @@ const useGetLang = (): TApiWordsResponse => {
 		};
 		fetchWords();
 	}, []);
-	return { lang, error, loading };
+	return { languages, error, loading };
 };
 
 export default useGetLang;
