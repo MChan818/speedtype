@@ -7,7 +7,7 @@ import Stats from "../components/Stats";
 import { TimeContextProvider } from "../components/Context/TimeContext";
 
 const TypingTest = () => {
-	const timer = 5;
+	const timer = 60;
 	const [start, setStart] = useState<boolean>(false);
 	const [correctWords, setCorrectWords] = useState<number>(0);
 	const [totalWords, setTotalWords] = useState<number>(0);
