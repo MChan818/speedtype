@@ -1,5 +1,5 @@
 .selector-base {
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(214, 181, 181, 0.3);
     height: 3rem;
     display: flex;
     z-index: 0;
@@ -8,23 +8,22 @@
     align-items: center;
   }
   
-  .selector-option {
-    width: 100%;
+.selector-option {
+    width: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 2;
     cursor: pointer;
-  }
-  
-  .selector-slider {
+}
+
+.selector-slider {
     position: absolute;
     height: calc(100% - 5px);
-    width: calc(10rem - 3px);
-    background-color: rgba(255,255,255,0.1);
+    width: calc(7.5rem - 3px);
     left: 0;
     transition: left 0.3s;
     z-index: 1;
     border-radius: 2rem;
     box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
-  }
+}

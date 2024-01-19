@@ -21,7 +21,7 @@ const useGetWords = ({ number, language }: PropType): TApiWordsResponse => {
 		const fetchWords = async () => {
 			setLoading(true);
 			await fetch(
-				`https://random-word-api.herokuapp.com/word?number=${number}&lang=${language}`,
+				`https://random-word-api.herokuapp.com/word?number=${number}&lang=${language}&words=1`,
 			)
 				.then((res: any) => {
 					if (res.ok) return res.json();
@@ -40,6 +40,7 @@ const useGetWords = ({ number, language }: PropType): TApiWordsResponse => {
 		};
 		fetchWords();
 	}, [number, language]);
+
 	return { data, error, loading };
 };
 

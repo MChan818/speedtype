@@ -11,17 +11,25 @@ export const AppContext = createContext<ContextType>({
 });
 
 export const AppContextProvider = ({ children }: { children: ReactNode }) => {
+	const [appLoading, setAppLoading] = useState<boolean>(false);
 	const [lang, setLang] = useState<string>("es");
 
 	const handleLang = (lang: string) => {
 		setLang(lang);
 	};
+
+	const handleAppLoading = () => {
+		setAppLoading((prev) => !prev);
+	};
+
 	const value = useMemo(
 		() => ({
 			lang,
 			handleLang,
+			appLoading,
+			handleAppLoading,
 		}),
-		[lang],
+		[lang, appLoading],
 	);
 
 	return (
