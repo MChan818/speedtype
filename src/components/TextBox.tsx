@@ -50,7 +50,7 @@ const TextBox = ({ handleStart }: PropType) => {
 
 	return data && !loading ? (
 		<>
-			<div className="h-[25vh] w-[80vw] border-2 border-white mt-12">
+			<div className="h-[25vh] w-[80vw] mt-24">
 				<span className="w-full h-full flex p-2 flex-wrap relative">
 					{data.map((word: string, index: number) => {
 						return (
@@ -94,7 +94,7 @@ const TextBox = ({ handleStart }: PropType) => {
 			/>
 		</>
 	) : (
-		<div className="h-[25vh] w-[80vw] border-2 border-white mt-12 flex items-center justify-center">
+		<div className="h-[25vh] w-[80vw] mt-24 flex items-center justify-center">
 			<p id="wordList" className="text-lg p-4">
 				Loading
 			</p>

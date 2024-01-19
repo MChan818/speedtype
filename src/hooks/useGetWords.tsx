@@ -19,6 +19,8 @@ const useGetWords = ({ number, language }: PropType): TApiWordsResponse => {
 
 	useLayoutEffect(() => {
 		const fetchWords = async () => {
+			console.log(import.meta.env.VITE_ENDPOINT_ACTIVATE)
+			if(import.meta.env.VITE_ENDPOINT_ACTIVATE === "false") return;
 			setLoading(true);
 			await fetch(
 				`https://random-word-api.herokuapp.com/word?number=${number}&lang=${language}`,
@@ -29,6 +31,7 @@ const useGetWords = ({ number, language }: PropType): TApiWordsResponse => {
 				})
 				.then((res: string[]) => {
 					const noSpacesArray:string[] = res.map((word:string)=>word.replace(/ /g, ""))
+					console.log(noSpacesArray);
 					setData(noSpacesArray);
 				})
 				.catch((err) => {
