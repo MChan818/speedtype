@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import useGetWords from "../hooks/useGetWords";
 import { AppContext } from "./Context/AppContext";
 
@@ -67,27 +67,28 @@ const TextBox = () => {
 		const word: string = event.target.value;
 		const lastLetter: string = event.nativeEvent.data;
 		setInputValue(word);
-		if (word.includes(" ")) {
-			console.log("Empty");
+		if (lastLetter === " ") {
 			setCurrentLetter(0);
 			setCurrentWord((prev) => prev + 1);
 			return setInputValue("");
 		}
 		if (lastLetter === null) {
 			const element = document.getElementById(
-				"letter" + currentWord + "" + (currentLetter - 1),
+				"word" + currentWord + "-letter" + (currentLetter - 1),
 			);
 			if (!element) return console.error("Letter id not found");
 			element.style.color = "gray";
 			setCurrentLetter((prev) => prev - 1);
 			return;
 		}
-		const element = document.getElementById("letter" + currentWord + "" + currentLetter);
-		if (!element) return console.error("Letter id not found");
-		if (element.innerHTML === word.substring(word.length - 1, word.length)) {
-			element.style.color = "lightgreen";
+		const letterElement = document.getElementById(
+			"word" + currentWord + "-letter" + currentLetter,
+		);
+		if (!letterElement) return console.error("Letter id not found");
+		if (letterElement.innerHTML === word.substring(word.length - 1, word.length)) {
+			letterElement.style.color = "lightgreen";
 		} else {
-			element.style.color = "red";
+			letterElement.style.color = "red";
 		}
 		setCurrentLetter((prev) => prev + 1);
 	};
@@ -101,7 +102,7 @@ const TextBox = () => {
 							<span id={`word` + index} className="text-lg flex" key={index}>
 								{word.split("").map((letter: string, innerIndex: number) => (
 									<span
-										id={`letter` + index + "" + innerIndex}
+										id={`word` + index + "-letter" + innerIndex}
 										key={innerIndex}
 										className={
 											currentLetter === innerIndex && currentWord === index
@@ -113,8 +114,8 @@ const TextBox = () => {
 									</span>
 								))}
 								<span
-									id={"letter"+index+""+word.length}
-									key={"space"+index}
+									id={"letter" + index + "" + word.length}
+									key={"space" + index}
 									className={
 										currentLetter === word.length && currentWord === index
 											? "bg-white text-black"
