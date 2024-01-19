@@ -8,6 +8,11 @@ const TypingTest = () => {
 	const [start, setStart] = useState<boolean>(false);
 	const [timeout, setTimeout] = useState<boolean>(false);
 	const [disable, setDisable] = useState<boolean>(false);
+
+	const handleStart = () => {
+		setStart(true);
+	};
+
 	return (
 		<div className="w-screen min-h-screen flex flex-col py-4 items-center bg-[#111] text-slate-400 lg:py-12 lg:px-24 roboto-mono">
 			<div className="w-full text-center lg:text-start">
@@ -17,7 +22,7 @@ const TypingTest = () => {
 				<Timer start={start} setTimeout={setTimeout} />
 				<SelectorButton options={SelectorOptions} defaultIndex={0} disable={disable} />
 			</div>
-			<TextBox />
+			<TextBox handleStart={handleStart}/>
 		</div>
 	);
 };

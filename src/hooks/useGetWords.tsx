@@ -21,15 +21,15 @@ const useGetWords = ({ number, language }: PropType): TApiWordsResponse => {
 		const fetchWords = async () => {
 			setLoading(true);
 			await fetch(
-				`https://random-word-api.herokuapp.com/word?number=${number}&lang=${language}&words=1`,
+				`https://random-word-api.herokuapp.com/word?number=${number}&lang=${language}`,
 			)
 				.then((res: any) => {
 					if (res.ok) return res.json();
 					throw new Error("Error fetching words");
 				})
-				.then((res: any) => {
-					console.log(res);
-					setData(res);
+				.then((res: string[]) => {
+					const noSpacesArray:string[] = res.map((word:string)=>word.replace(/ /g, ""))
+					setData(noSpacesArray);
 				})
 				.catch((err) => {
 					setError(err);

@@ -1,66 +1,17 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useGetWords from "../hooks/useGetWords";
 import { AppContext } from "./Context/AppContext";
 
-const TextBox = () => {
+type PropType = {
+	handleStart: () => void;
+};
+
+const TextBox = ({ handleStart }: PropType) => {
 	const { lang } = useContext(AppContext);
-	const loading = false;
-	const data = [
-		"cama",
-		"enfermedad",
-		"oscuridades",
-		"espaciado",
-		"misprogramas",
-		"cintura",
-		"Ratales",
-		"legislado",
-		"quésis",
-		"amoroso",
-		"agonista",
-		"aclimatises",
-		"Frumpier",
-		"Sculker",
-		"inflexible",
-		"Snuggies",
-		"erraencias",
-		"portero",
-		"audacias",
-		"Relayed",
-		"Sultrier",
-		"afrodisíacos",
-		"camaradas",
-		"nuestroari",
-		"Traslado",
-		"subjugador",
-		"Misers",
-		"en medio",
-		"justo",
-		"cerebrado",
-		"transacción",
-		"amateur",
-		"Fez",
-		"pollaeyed",
-		"calas",
-		"inter",
-		"Platón",
-		"fotooxidativo",
-		"carotida",
-		"extensiones",
-		"Perdido",
-		"estileno",
-		"vanidos",
-		"buzón de voz",
-		"termoformado",
-		"sin hablar",
-		"después de la vida",
-		"antifertilidad",
-		"Reacreditación",
-		"reflectante",
-	];
 	const [inputValue, setInputValue] = useState<string>("");
 	const [currentWord, setCurrentWord] = useState<number>(0);
 	const [currentLetter, setCurrentLetter] = useState<number>(0);
-	// const { data, loading } = useGetWords({ number: 50, language: lang || "es" });
+	const { data, loading } = useGetWords({ number: 50, language: lang || "es" });
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const handleInput = (event: any) => {
@@ -92,6 +43,10 @@ const TextBox = () => {
 		}
 		setCurrentLetter((prev) => prev + 1);
 	};
+
+	useEffect(() => {
+		if (inputValue.length > 0) handleStart();
+	}, [inputValue, handleStart]);
 
 	return data && !loading ? (
 		<>
