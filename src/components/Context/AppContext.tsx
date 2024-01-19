@@ -6,13 +6,13 @@ export interface ContextType {
 }
 
 export const AppContext = createContext<ContextType>({
-	lang: "es",
+	lang: "en",
 	handleLang: () => {},
 });
 
 export const AppContextProvider = ({ children }: { children: ReactNode }) => {
 	const [appLoading, setAppLoading] = useState<boolean>(false);
-	const [lang, setLang] = useState<string>("es");
+	const [lang, setLang] = useState<string>("en");
 
 	const handleLang = (lang: string) => {
 		setLang(lang);

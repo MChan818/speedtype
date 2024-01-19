@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import useGetWords from "../hooks/useGetWords";
 import { AppContext } from "./Context/AppContext";
 
+import { defaultList } from "./WordList/WordList";
+
 type PropType = {
 	handleStart: () => void;
 };
@@ -11,7 +13,7 @@ const TextBox = ({ handleStart }: PropType) => {
 	const [inputValue, setInputValue] = useState<string>("");
 	const [currentWord, setCurrentWord] = useState<number>(0);
 	const [currentLetter, setCurrentLetter] = useState<number>(0);
-	const { data, loading } = useGetWords({ number: 50, language: lang || "es" });
+	const { data, loading } = useGetWords({ number: 100, language: lang || "en" });
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const handleInput = (event: any) => {
@@ -37,9 +39,9 @@ const TextBox = ({ handleStart }: PropType) => {
 		);
 		if (!letterElement) return console.error("Letter id not found");
 		if (letterElement.innerHTML === word.substring(word.length - 1, word.length)) {
-			letterElement.style.color = "lightgreen";
+			letterElement.style.color = import.meta.env.VITE_COLOR_GREEN;
 		} else {
-			letterElement.style.color = "red";
+			letterElement.style.color = import.meta.env.VITE_COLOR_RED;
 		}
 		setCurrentLetter((prev) => prev + 1);
 	};
@@ -50,11 +52,11 @@ const TextBox = ({ handleStart }: PropType) => {
 
 	return data && !loading ? (
 		<>
-			<div className="h-[25vh] w-[80vw] mt-24">
+			<div className="h-[25vh] w-[80vw] mt-24 overflow-hidden">
 				<span className="w-full h-full flex p-2 flex-wrap relative">
-					{data.map((word: string, index: number) => {
+					{defaultList.map((word: string, index: number) => {
 						return (
-							<span id={`word` + index} className="text-lg flex" key={index}>
+							<span id={`word` + index} className="text-xl flex" key={index}>
 								{word.split("").map((letter: string, innerIndex: number) => (
 									<span
 										id={`word` + index + "-letter" + innerIndex}
@@ -88,7 +90,7 @@ const TextBox = ({ handleStart }: PropType) => {
 				id="textbox"
 				type="text"
 				placeholder="Escribí para empezar"
-				className="bg-[transparent] border-2 border-white h-16 w-64 mt-8 p-4 text-lg"
+				className="bg-[transparent] border-2 border-white h-16 w-64 mt-24 p-4 text-lg"
 				onChange={handleInput}
 				value={inputValue}
 			/>

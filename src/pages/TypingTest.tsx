@@ -10,6 +10,7 @@ const TypingTest = () => {
 	const [disable, setDisable] = useState<boolean>(false);
 
 	const handleStart = () => {
+		setDisable(true);
 		setStart(true);
 	};
 
