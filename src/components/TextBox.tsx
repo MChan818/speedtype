@@ -2,8 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import useGetWords from "../hooks/useGetWords";
 import { AppContext } from "./Context/AppContext";
 
-import { defaultList } from "./WordList/WordList";
-
 type PropType = {
 	handleStart: () => void;
 	handleWords: (isCorrect: boolean) => void;
@@ -92,7 +90,7 @@ const TextBox = ({ handleStart, handleWords }: PropType) => {
 		<>
 			<div className="h-[25vh] w-[80vw] mt-24 overflow-hidden">
 				<span className="w-full h-full flex p-2 flex-wrap relative">
-					{defaultList.map((word: string, index: number) => {
+					{data.map((word: string, index: number) => {
 						return (
 							<span id={`word` + index} className="text-xl flex" key={index}>
 								{word.split("").map((letter: string, innerIndex: number) => (
