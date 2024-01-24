@@ -19,9 +19,10 @@ const TextBox = ({ handleStart, handleWords }: PropType) => {
 			"word" + currentWord + "-letter" + currentLetter,
 		);
 		if (!letterElement) return console.error("Letter id not found");
+		console.log("Painting")
 		letterElement.style.color = isCorrect
-			? import.meta.env.VITE_COLOR_GREEN
-			: import.meta.env.VITE_COLOR_RED;
+			? "#22bb33"
+			: "#bb2124"
 	};
 
 	const paintLettersRemainers = () => {
