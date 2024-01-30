@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import useWordStats from "../hooks/useWordStats";
 import { TimeContext } from "./Context/TimeContext";
+import { AppContext } from "./Context/AppContext";
 
 type PropType = {
 	totalWords: number;
@@ -12,6 +13,7 @@ type PropType = {
 
 const Stats = ({ totalWords, correctWords, wrongWords, start, handleStop }: PropType) => {
 	const { timePassed, timeLeft } = useContext(TimeContext);
+	const { handleStats } = useContext(AppContext);
 	const { accuracy, wpm } = useWordStats({
 		timer: timePassed,
 		totalWords: totalWords,
@@ -21,10 +23,15 @@ const Stats = ({ totalWords, correctWords, wrongWords, start, handleStop }: Prop
 
 	useEffect(() => {
 		if (timeLeft <= 0 && start) {
-			// console.log("Stop")
+			handleStats({
+				wpm: (Math.floor(wpm * 100) / 100).toFixed(2).toString(),
+				accuracy: Math.floor(accuracy).toString(),
+				correct: correctWords.toString(),
+				incorrect: wrongWords.toString(),
+			});
 			handleStop();
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [timeLeft]);
 
 	return (

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import useGetWords from "../hooks/useGetWords";
 import { AppContext } from "./Context/AppContext";
+import useReadFile from "../hooks/useReadFile";
 
 type PropType = {
 	handleStart: () => void;
@@ -9,20 +9,17 @@ type PropType = {
 
 const TextBox = ({ handleStart, handleWords }: PropType) => {
 	const { lang } = useContext(AppContext);
+	const { words } = useReadFile({ lang: lang });
 	const [inputValue, setInputValue] = useState<string>("");
 	const [currentWord, setCurrentWord] = useState<number>(0);
 	const [currentLetter, setCurrentLetter] = useState<number>(0);
-	const { data, loading } = useGetWords({ number: 100, language: lang || "en" });
 
 	const paintLetter = (isCorrect: boolean): void => {
 		const letterElement = document.getElementById(
 			"word" + currentWord + "-letter" + currentLetter,
 		);
 		if (!letterElement) return console.error("Letter id not found");
-		console.log("Painting")
-		letterElement.style.color = isCorrect
-			? "#22bb33"
-			: "#bb2124"
+		letterElement.style.color = isCorrect ? "#22bb33" : "#bb2124";
 	};
 
 	const paintLettersRemainers = () => {
@@ -87,11 +84,11 @@ const TextBox = ({ handleStart, handleWords }: PropType) => {
 		if (inputValue.length > 0 || currentWord !== 0 || currentLetter || 0) handleStart();
 	}, [inputValue, handleStart, currentWord, currentLetter]);
 
-	return data && !loading ? (
+	return words ? (
 		<>
 			<div className="h-[25vh] w-[80vw] mt-24 overflow-hidden">
 				<span className="w-full h-full flex p-2 flex-wrap relative">
-					{data.map((word: string, index: number) => {
+					{words.map((word: string, index: number) => {
 						return (
 							<span id={`word` + index} className="text-xl flex" key={index}>
 								{word.split("").map((letter: string, innerIndex: number) => (

@@ -5,10 +5,12 @@ import SelectorButton from "../components/Selector/SelectorButton";
 import { SelectorOptions } from "../components/Selector/SelectorOptions";
 import Stats from "../components/Stats";
 import { TimeContextProvider } from "../components/Context/TimeContext";
+import ResultsModal from "../components/ResultsModal";
 
 const TypingTest = () => {
 	const timer = 60;
 	const [start, setStart] = useState<boolean>(false);
+	const [open, setOpen] = useState<boolean>(false);
 	const [correctWords, setCorrectWords] = useState<number>(0);
 	const [totalWords, setTotalWords] = useState<number>(0);
 	const [wrongWords, setWrongWords] = useState<number>(0);
@@ -18,11 +20,7 @@ const TypingTest = () => {
 	};
 	const handleStop = () => {
 		setStart(false);
-		if (confirm("Confirma!")) {
-			window.location.reload();
-		} else {
-			return
-		}
+		setOpen(true);
 	};
 
 	const handleWords = (isCorrect: boolean) => {
@@ -53,6 +51,7 @@ const TypingTest = () => {
 				/>
 			</TimeContextProvider>
 			<TextBox handleStart={handleStart} handleWords={handleWords} />
+			<ResultsModal open={open} />
 		</div>
 	);
 };
