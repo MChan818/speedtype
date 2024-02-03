@@ -92,6 +92,7 @@ const TextBox = ({ handleStart, handleWords }: PropType) => {
 						return (
 							<span id={`word` + index} className="text-xl flex" key={index}>
 								{word.split("").map((letter: string, innerIndex: number) => {
+									if (letter === "\r") return;
 									return (
 										<span
 											id={`word` + index + "-letter" + innerIndex}
