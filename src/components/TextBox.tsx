@@ -89,21 +89,25 @@ const TextBox = ({ handleStart, handleWords }: PropType) => {
 			<div className="h-[25vh] w-[80vw] mt-24 overflow-hidden">
 				<span className="w-full h-full flex p-2 flex-wrap relative">
 					{words.map((word: string, index: number) => {
+						console.log(word);
 						return (
 							<span id={`word` + index} className="text-xl flex" key={index}>
-								{word.split("").map((letter: string, innerIndex: number) => (
-									<span
-										id={`word` + index + "-letter" + innerIndex}
-										key={innerIndex}
-										className={
-											currentLetter === innerIndex && currentWord === index
-												? "bg-white text-black"
-												: ""
-										}
-									>
-										{letter}
-									</span>
-								))}
+								{word.split("").map((letter: string, innerIndex: number) => {
+									return (
+										<span
+											id={`word` + index + "-letter" + innerIndex}
+											key={innerIndex}
+											className={
+												currentLetter === innerIndex &&
+												currentWord === index
+													? "bg-white text-black"
+													: ""
+											}
+										>
+											{letter}
+										</span>
+									);
+								})}
 								<span
 									id={"letter" + index + "" + word.length}
 									key={"space" + index}

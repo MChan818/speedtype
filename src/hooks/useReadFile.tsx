@@ -23,7 +23,9 @@ const useReadFile = ({ lang }: InputProp) => {
 			fetch(file)
 				.then((r) => r.text())
 				.then((text: string) => {
-					setWords(shuffle(text.split("\r\n")));
+					const shuffledArray: string[] = shuffle(text.split("\r\n"));
+					const slicedArray: string[] = shuffledArray.slice(0, 200);
+					setWords(slicedArray);
 				});
 		};
 		fetchWords();
