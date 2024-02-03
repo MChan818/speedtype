@@ -84,6 +84,10 @@ const TextBox = ({ handleStart, handleWords }: PropType) => {
 		if (inputValue.length > 0 || currentWord !== 0 || currentLetter || 0) handleStart();
 	}, [inputValue, handleStart, currentWord, currentLetter]);
 
+	useEffect(() => {
+		console.log(words);
+	}, [words]);
+
 	return words ? (
 		<>
 			<div className="h-[25vh] w-[80vw] mt-24 overflow-hidden">
