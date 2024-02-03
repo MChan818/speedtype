@@ -8,7 +8,7 @@ import { TimeContextProvider } from "../components/Context/TimeContext";
 import ResultsModal from "../components/ResultsModal";
 
 const TypingTest = () => {
-	const timer = 10;
+	const timer = 60;
 	const [start, setStart] = useState<boolean>(false);
 	const [open, setOpen] = useState<boolean>(false);
 	const [correctWords, setCorrectWords] = useState<number>(0);
