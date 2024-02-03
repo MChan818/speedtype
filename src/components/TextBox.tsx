@@ -84,16 +84,11 @@ const TextBox = ({ handleStart, handleWords }: PropType) => {
 		if (inputValue.length > 0 || currentWord !== 0 || currentLetter || 0) handleStart();
 	}, [inputValue, handleStart, currentWord, currentLetter]);
 
-	useEffect(() => {
-		console.log(words);
-	}, [words]);
-
 	return words ? (
 		<>
 			<div className="h-[25vh] w-[80vw] mt-24 overflow-hidden">
 				<span className="w-full h-full flex p-2 flex-wrap relative">
 					{words.map((word: string, index: number) => {
-						console.log(word);
 						return (
 							<span id={`word` + index} className="text-xl flex" key={index}>
 								{word.split("").map((letter: string, innerIndex: number) => {
