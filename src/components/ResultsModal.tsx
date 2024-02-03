@@ -23,16 +23,16 @@ const ResultsModal = ({ open }: PropType) => {
 					<div className="text-[#bb2124]">
 						Wrong: <b>{stats?.incorrect}</b>
 					</div>
-				</div>
-				<div className="absolute bottom-44 z-50">
-					<button
-						className="text-2xl border-2 px-16 py-4"
-						onClick={() => {
-							window.location.assign("/");
-						}}
-					>
-						Reintentar
-					</button>
+					<div className="absolute bottom-44 z-50">
+						<button
+							className="text-2xl border-2 px-16 py-4"
+							onClick={() => {
+								window.location.assign("/");
+							}}
+						>
+							Reintentar
+						</button>
+					</div>
 				</div>
 			</section>
 		)
